@@ -1,0 +1,6 @@
+Class A with private ctors declares public static method "create" which returns std::shared_ptr<A>. 
+For the purpose the class defines nested struct A_shared_enabler inheriting from A. 
+The only member of the latter - the ctor template - simply forwards all args to A ctor.
+To have access to the private ctors the A_shared_enabler must be nested class. 
+The A::create method returns shared_ptr to A_shared_enabler which is autoconverted to shared_ptr<A> due to inheritance. 
+As std::shared_ptr holds actual destructor, the ~A_shared_enabler will be called.
